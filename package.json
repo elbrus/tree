@@ -68,7 +68,7 @@
 		"rc-dialog": "^6.5.9",
 		"rc-tools": "^6.x",
 		"rc-tooltip": "https://github.com/elbrus/tooltip/tarball/a923a17cf78b6c1606551dc134da4b5f2c3a9a93",
-		"rc-trigger": "^1.11.3",
+		"rc-trigger": "https://github.com/elbrus/trigger/tarball/052aa588e1f860b8d03bde06fb0396d601177019",
 		"react": "15.x",
 		"react-dom": "15.x",
 		"react-test-renderer": "^15.5.4"
