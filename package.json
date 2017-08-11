@@ -80,8 +80,5 @@
 		"rc-animate": "^2.4.1",
 		"rc-util": "^4.0.4",
 		"warning": "^3.0.0"
-	},
-	"pre-commit": [
-		"lint"
-	]
+	}
 }

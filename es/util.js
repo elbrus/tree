@@ -6,15 +6,15 @@ export function getOffset(ele) {
     return { top: 0, left: 0 };
   }
 
-  const rect = ele.getBoundingClientRect();
+  var rect = ele.getBoundingClientRect();
   if (rect.width || rect.height) {
-    const doc = ele.ownerDocument;
-    const win = doc.defaultView;
-    const docElem = doc.documentElement;
+    var doc = ele.ownerDocument;
+    var win = doc.defaultView;
+    var docElem = doc.documentElement;
 
     return {
       top: rect.top + win.pageYOffset - docElem.clientTop,
-      left: rect.left + win.pageXOffset - docElem.clientLeft,
+      left: rect.left + win.pageXOffset - docElem.clientLeft
     };
   }
 
@@ -22,32 +22,25 @@ export function getOffset(ele) {
 }
 
 export function traverseTreeNodes(treeNodes, callback) {
-  const traverse = (subTreeNodes, level, parentsChildrenPos, parentPos) => {
-    Children.forEach(subTreeNodes, (item, index) => {
-      const pos = `${level}-${index}`;
+  var traverse = function traverse(subTreeNodes, level, parentsChildrenPos, parentPos) {
+    Children.forEach(subTreeNodes, function (item, index) {
+      var pos = level + '-' + index;
       parentsChildrenPos.push(pos); // Note: side effect
 
-      const childrenPos = [];
+      var childrenPos = [];
       if (item.props.children && item.type && item.type.isTreeNode) {
         traverse(item.props.children, pos, childrenPos, pos);
       }
-      callback(
-        item,
-        index,
-        pos,
-        item.key || pos,
-        childrenPos,
-        parentPos
-      );
+      callback(item, index, pos, item.key || pos, childrenPos, parentPos);
     });
   };
   traverse(treeNodes, 0, []);
 }
 
 export function updateCheckState(obj, checkedPosition, checkIt) {
-  const childrenLoop = (parentObj) => {
-    parentObj.childrenPos.forEach(childPos => {
-      const childObj = obj[childPos];
+  var childrenLoop = function childrenLoop(parentObj) {
+    parentObj.childrenPos.forEach(function (childPos) {
+      var childObj = obj[childPos];
       // User click don't change disabled item checked state
       if (!childObj.disableCheckbox && !childObj.disabled) {
         childObj.halfChecked = false;
@@ -59,19 +52,18 @@ export function updateCheckState(obj, checkedPosition, checkIt) {
 
   childrenLoop(obj[checkedPosition]);
 
-  const parentLoop = (childObj) => {
+  var parentLoop = function parentLoop(childObj) {
     if (!childObj.parentPos) return;
-    const parentObj = obj[childObj.parentPos];
+    var parentObj = obj[childObj.parentPos];
 
-    let childrenCount = parentObj.childrenPos.length;
+    var childrenCount = parentObj.childrenPos.length;
 
-    let checkedChildrenCount = 0;
-    parentObj.childrenPos.forEach(childPos => {
+    var checkedChildrenCount = 0;
+    parentObj.childrenPos.forEach(function (childPos) {
       if (obj[childPos].disableCheckbox) {
         childrenCount -= 1;
       }
-      if (obj[childPos].checked === true) checkedChildrenCount++;
-      else if (obj[childPos].halfChecked === true) checkedChildrenCount += 0.5;
+      if (obj[childPos].checked === true) checkedChildrenCount++;else if (obj[childPos].halfChecked === true) checkedChildrenCount += 0.5;
     });
 
     if (checkedChildrenCount === childrenCount) {
@@ -91,12 +83,12 @@ export function updateCheckState(obj, checkedPosition, checkIt) {
 }
 
 export function getCheck(treeNodesStates) {
-  const halfCheckedKeys = [];
-  const checkedKeys = [];
-  const checkedNodes = [];
-  const checkedNodesPositions = [];
-  Object.keys(treeNodesStates).forEach((item) => {
-    const itemObj = treeNodesStates[item];
+  var halfCheckedKeys = [];
+  var checkedKeys = [];
+  var checkedNodes = [];
+  var checkedNodesPositions = [];
+  Object.keys(treeNodesStates).forEach(function (item) {
+    var itemObj = treeNodesStates[item];
     if (itemObj.checked) {
       checkedKeys.push(itemObj.key);
       checkedNodes.push(itemObj.node);
@@ -106,22 +98,22 @@ export function getCheck(treeNodesStates) {
     }
   });
   return {
-    halfCheckedKeys,
-    checkedKeys,
-    checkedNodes,
-    checkedNodesPositions,
+    halfCheckedKeys: halfCheckedKeys,
+    checkedKeys: checkedKeys,
+    checkedNodes: checkedNodes,
+    checkedNodesPositions: checkedNodesPositions
   };
 }
 
 export function getStrictlyValue(checkedKeys, halfChecked) {
   if (halfChecked) {
-    return { checked: checkedKeys, halfChecked };
+    return { checked: checkedKeys, halfChecked: halfChecked };
   }
   return checkedKeys;
 }
 
 export function isInclude(smallArray, bigArray) {
-  return smallArray.every((item, index) => {
+  return smallArray.every(function (item, index) {
     return item === bigArray[index];
   });
 }
@@ -135,7 +127,7 @@ export function arraysEqual(a, b) {
 
   // If you don't care about the order of the elements inside
   // the array, you should sort both arrays here.
-  for (let i = 0; i < a.length; ++i) {
+  for (var i = 0; i < a.length; ++i) {
     if (a[i] !== b[i]) return false;
   }
   return true;
