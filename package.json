@@ -67,7 +67,7 @@
 		"pre-commit": "1.x",
 		"rc-dialog": "^6.5.9",
 		"rc-tools": "^6.x",
-		"rc-tooltip": "3.x",
+		"rc-tooltip": "https://github.com/elbrus/tooltip/tarball/a923a17cf78b6c1606551dc134da4b5f2c3a9a93",
 		"rc-trigger": "^1.11.3",
 		"react": "15.x",
 		"react-dom": "15.x",
